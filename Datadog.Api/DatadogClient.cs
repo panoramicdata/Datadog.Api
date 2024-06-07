@@ -27,12 +27,15 @@ public class DatadogClient : IDisposable
 			})
 		};
 
+		Aws = RestService.For<IAws>(_httpClient, refitSettings);
 		Containers = RestService.For<IContainers>(_httpClient, refitSettings);
 		Dashboards = RestService.For<IDashboards>(_httpClient, refitSettings);
 		Hosts = RestService.For<IHosts>(_httpClient, refitSettings);
 		Roles = RestService.For<IRoles>(_httpClient, refitSettings);
 		Users = RestService.For<IUsers>(_httpClient, refitSettings);
 	}
+
+	public IAws Aws { get; set; }
 
 	public IContainers Containers { get; set; }
 

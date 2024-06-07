@@ -5,6 +5,6 @@ namespace Datadog.Api.Interfaces;
 
 public interface IContainers
 {
-	[Get("/v1/containers")]
+	[Get("/v2/containers")]
 	Task<Response<Container>> GetAsync(CancellationToken cancellationToken);
 }
