@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Datadog.Api.Models;
+namespace Datadog.Api.Models.Dashboards;
 
 public class DashboardsResponse
 {

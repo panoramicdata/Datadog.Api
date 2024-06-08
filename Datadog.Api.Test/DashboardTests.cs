@@ -8,7 +8,10 @@ public class DashboardTests(DatadogClient client)
 	public async Task Get_Page_Succeeds()
 	{
 		// Arrange
-		var result = await client.Dashboards.GetAsync(default);
+		var result = await client
+			.Dashboards
+			.GetAsync(default);
+
 		result.Should().NotBeNull();
 	}
 }

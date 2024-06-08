@@ -2,7 +2,15 @@
 
 namespace Datadog.Api.Models;
 
-public class Entity<TAttributes> : BaseEntity
+public class GuidIdentifiedEntity<TAttributes> : GuidIdentifiedBaseEntity
+{
+	[JsonPropertyName("attributes")]
+	public required TAttributes Attributes { get; set; }
+
+	[JsonPropertyName("relationships")]
+	public IReadOnlyDictionary<string, object>? Relationships { get; set; }
+}
+public class IntIdentifiedEntity<TAttributes> : IntIdentifiedBaseEntity
 {
 	[JsonPropertyName("attributes")]
 	public required TAttributes Attributes { get; set; }

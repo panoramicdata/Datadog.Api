@@ -1,4 +1,4 @@
-﻿using Datadog.Api.Models;
+﻿using Datadog.Api.Models.Dashboards;
 using Refit;
 
 namespace Datadog.Api.Interfaces;

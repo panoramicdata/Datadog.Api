@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Datadog.Api.Models;
+namespace Datadog.Api.Models.Dashboards;
 
 public class Dashboard : BaseAttributes
 {
@@ -11,7 +11,7 @@ public class Dashboard : BaseAttributes
 	public required string Title { get; set; }
 
 	[JsonPropertyName("description")]
-	public required object Description { get; set; }
+	public required string Description { get; set; }
 
 	[JsonPropertyName("layout_type")]
 	public required string LayoutType { get; set; }

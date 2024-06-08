@@ -29,6 +29,6 @@ public interface IAws
 	/// Get all Amazon EventBridge sources
 	/// </summary>
 	/// <seealso cref="https://docs.datadoghq.com/api/latest/aws-integration/#get-all-amazon-eventbridge-sources"/>
-	[Get("/api/v1/integration/aws/event_bridge")]
+	[Get("/v1/integration/aws/event_bridge")]
 	Task<Response<EventBridgeSources>> GetEventBridgeSourcesAsync(CancellationToken cancellationToken);
 }

@@ -8,7 +8,24 @@ public class UserTests(DatadogClient client)
 	public async Task Get_Page_Succeeds()
 	{
 		// Arrange
-		var result = await client.Users.GetAsync(default);
+		var result = await client
+			.Users
+			.GetAsync(default);
+
+		result.Should().NotBeNull();
+	}
+}
+
+public class WebhooksIntegrationTests(DatadogClient client)
+{
+	[Fact]
+	public async Task Get_Page_Succeeds()
+	{
+		// Arrange
+		var result = await client
+			.WebhooksIntegrations
+			.GetAsync(default);
+
 		result.Should().NotBeNull();
 	}
 }

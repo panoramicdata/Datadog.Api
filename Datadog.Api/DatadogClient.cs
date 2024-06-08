@@ -30,9 +30,15 @@ public class DatadogClient : IDisposable
 		Aws = RestService.For<IAws>(_httpClient, refitSettings);
 		Containers = RestService.For<IContainers>(_httpClient, refitSettings);
 		Dashboards = RestService.For<IDashboards>(_httpClient, refitSettings);
+		DashboardLists = RestService.For<IDashboardLists>(_httpClient, refitSettings);
+		Downtimes = RestService.For<IDowntimes>(_httpClient, refitSettings);
 		Hosts = RestService.For<IHosts>(_httpClient, refitSettings);
+		IpAllowLists = RestService.For<IIpAllowLists>(_httpClient, refitSettings);
+		Metrics = RestService.For<IMetrics>(_httpClient, refitSettings);
 		Roles = RestService.For<IRoles>(_httpClient, refitSettings);
+		Teams = RestService.For<ITeams>(_httpClient, refitSettings);
 		Users = RestService.For<IUsers>(_httpClient, refitSettings);
+		WebhooksIntegrations = RestService.For<IWebhooksIntegrations>(_httpClient, refitSettings);
 	}
 
 	public IAws Aws { get; set; }
@@ -41,11 +47,23 @@ public class DatadogClient : IDisposable
 
 	public IDashboards Dashboards { get; set; }
 
+	public IDashboardLists DashboardLists { get; set; }
+
+	public IDowntimes Downtimes { get; set; }
+
+	public IIpAllowLists IpAllowLists { get; set; }
+
 	public IHosts Hosts { get; set; }
+
+	public IMetrics Metrics { get; set; }
 
 	public IUsers Users { get; set; }
 
 	public IRoles Roles { get; set; }
+
+	public ITeams Teams { get; set; }
+
+	public IWebhooksIntegrations WebhooksIntegrations { get; set; }
 
 	protected virtual void Dispose(bool disposing)
 	{

@@ -2,15 +2,15 @@
 
 namespace Datadog.Api.Test;
 
-public class ContainerTests(DatadogClient client)
+public class TeamsTests(DatadogClient client)
 {
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
 		// Arrange
 		var result = await client
-			.Containers
-			.GetAsync(default);
+			.Teams
+			.GetAsync(cancellationToken: default);
 
 		result.Should().NotBeNull();
 	}

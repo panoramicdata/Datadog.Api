@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Datadog.Api.Models;
+namespace Datadog.Api.Models.Users;
 
 public class User : NamedBaseAttributes
 {

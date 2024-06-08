@@ -1,4 +1,5 @@
 ﻿using Datadog.Api.Models;
+using Datadog.Api.Models.Users;
 using Refit;
 
 namespace Datadog.Api.Interfaces;
