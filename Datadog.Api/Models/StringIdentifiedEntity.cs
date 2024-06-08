@@ -2,8 +2,12 @@
 
 namespace Datadog.Api.Models;
 
-public class GuidIdentifiedEntity<TAttributes> : GuidIdentifiedBaseEntity
+public class StringIdentifiedEntity<TAttributes> : StringIdentifiedBaseEntity
 {
+	public StringIdentifiedEntity()
+	{
+	}
+
 	[JsonPropertyName("attributes")]
 	public required TAttributes Attributes { get; set; }
 

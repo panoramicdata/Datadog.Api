@@ -7,5 +7,5 @@ namespace Datadog.Api.Interfaces;
 public interface IWebhooksIntegrations
 {
 	[Get("/v1/integration/webhooks/configuration/webhooks")]
-	Task<Response<WebhooksIntegration>> GetAsync(CancellationToken cancellationToken);
+	Task<GuidIdentifiedResponse<WebhooksIntegration>> GetAsync(CancellationToken cancellationToken);
 }

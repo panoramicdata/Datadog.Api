@@ -7,5 +7,5 @@ namespace Datadog.Api.Interfaces;
 public interface IDowntimes
 {
 	[Get("/v2/downtime")]
-	Task<Response<Downtime>> GetAsync(CancellationToken cancellationToken);
+	Task<GuidIdentifiedResponse<Downtime>> GetAsync(CancellationToken cancellationToken);
 }

@@ -7,5 +7,5 @@ namespace Datadog.Api.Interfaces;
 public interface IRoles
 {
 	[Get("/v2/roles")]
-	Task<Response<Role>> GetAsync(CancellationToken cancellationToken);
+	Task<GuidIdentifiedResponse<Role>> GetAsync(CancellationToken cancellationToken);
 }

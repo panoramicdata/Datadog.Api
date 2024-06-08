@@ -7,7 +7,7 @@ namespace Datadog.Api.Interfaces;
 public interface ITeams
 {
 	[Get("/v2/team")]
-	Task<Response<Team>> GetAsync(
+	Task<GuidIdentifiedResponse<Team>> GetAsync(
 		[AliasAs("page[number]")] int? page = null,
 		[AliasAs("page[size]")] int? pageSize = null,
 		[AliasAs("sort")] string? sort = null,

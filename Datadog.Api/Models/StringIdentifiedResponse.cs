@@ -2,13 +2,13 @@
 
 namespace Datadog.Api.Models;
 
-public class Response<TData>
+public class StringIdentifiedResponse<TData>
 {
 	[JsonPropertyName("data")]
-	public required IReadOnlyCollection<GuidIdentifiedEntity<TData>> Data { get; set; }
+	public required IReadOnlyCollection<StringIdentifiedEntity<TData>> Data { get; set; }
 
 	[JsonPropertyName("included")]
-	public IReadOnlyCollection<GuidIdentifiedBaseEntity>? Included { get; set; }
+	public IReadOnlyCollection<StringIdentifiedBaseEntity>? Included { get; set; }
 
 	[JsonPropertyName("meta")]
 	public required Meta Meta { get; set; }
@@ -16,3 +16,4 @@ public class Response<TData>
 	[JsonPropertyName("links")]
 	public Links? Links { get; set; }
 }
+

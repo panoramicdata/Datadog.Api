@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace Datadog.Api.Models.Metrics;
-public class MetricsResponse
-{
-	[JsonPropertyName("metrics")]
-	public required IReadOnlyCollection<string> MetricNames { get; set; }
 
-	[JsonPropertyName("from")]
-	public required string From { get; set; }
+public class Metric
+{
+	[JsonPropertyName("id")]
+	public required string Id { get; set; }
+
+	[JsonPropertyName("$type")]
+	public required string Type { get; set; }
 }

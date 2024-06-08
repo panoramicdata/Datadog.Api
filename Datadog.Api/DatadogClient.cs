@@ -37,6 +37,7 @@ public class DatadogClient : IDisposable
 		Metrics = RestService.For<IMetrics>(_httpClient, refitSettings);
 		Roles = RestService.For<IRoles>(_httpClient, refitSettings);
 		Teams = RestService.For<ITeams>(_httpClient, refitSettings);
+		Usage = RestService.For<IUsage>(_httpClient, refitSettings);
 		Users = RestService.For<IUsers>(_httpClient, refitSettings);
 		WebhooksIntegrations = RestService.For<IWebhooksIntegrations>(_httpClient, refitSettings);
 	}
@@ -56,6 +57,8 @@ public class DatadogClient : IDisposable
 	public IHosts Hosts { get; set; }
 
 	public IMetrics Metrics { get; set; }
+
+	public IUsage Usage { get; set; }
 
 	public IUsers Users { get; set; }
 
@@ -80,7 +83,7 @@ public class DatadogClient : IDisposable
 
 	public void Dispose()
 	{
-		// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+		// Do not change this code. Put clean up code in 'Dispose(bool disposing)' method
 		Dispose(disposing: true);
 		GC.SuppressFinalize(this);
 	}
