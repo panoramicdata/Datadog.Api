@@ -10,6 +10,7 @@
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageIcon>Icon.png</PackageIcon>
 		<PackageTags>Datadog API REST</PackageTags>
+		<PackageId>PanoramicData.Datadog.Api</PackageId>
 		<Title>Datadog.Api</Title>
 		<Description>A .NET API for Datadog</Description>
 		<Summary>A .NET API for Datadog</Summary>
