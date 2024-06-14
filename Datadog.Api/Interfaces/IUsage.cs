@@ -4,6 +4,10 @@ using Refit;
 
 namespace Datadog.Api.Interfaces;
 
+/// <summary>
+/// Usage API
+/// </summary>
+/// <seealso href="https://docs.datadoghq.com/api/latest/usage-metering/"/>
 public interface IUsage
 {
 	/// <summary>
@@ -19,9 +23,9 @@ public interface IUsage
 	/// <param name="limit">Maximum number of results to return (between 1 and 500) - defaults to 500 if limit not specified.</param>
 	/// <param name="nextRecordId">List following results with a next_record_id provided in the previous query.</param>
 	/// <param name="cancellationToken"></param>
-	/// <seealso href="https://docs.datadoghq.com/api/latest/usage-metering/"/>
+	/// <seealso href="https://docs.datadoghq.com/api/latest/usage-metering/?code-lang=curl#get-hourly-usage-by-product-family"/>
 	[Get("/v2/usage/hourly_usage")]
-	Task<StringIdentifiedResponse<HourlyUsage>> GetAsync(
+	Task<StringIdentifiedResponse<HourlyUsage>> GetHourlyUsageAsync(
 		[AliasAs("filter[timestamp][start]")] string startHour,
 		[AliasAs("filter[timestamp][end]")] string endHour,
 		[AliasAs("filter[product_families]")] IReadOnlyCollection<ProductFamily> productFamilies,
@@ -30,5 +34,27 @@ public interface IUsage
 		[AliasAs("filter[versions]")] string? versions = null,
 		[AliasAs("page[limit]")] int limit = 500,
 		[AliasAs("page[next_record_id]")] string? nextRecordId = null,
+		CancellationToken cancellationToken = default);
+
+	/// <summary>
+	/// Get hourly usage attribution. Multi-region data is available starting March 1, 2023.
+	/// This endpoint requires the usage_read authorization scope.
+	/// </summary>
+	/// <param name="startHour">Datetime in ISO-8601 format, UTC, precise to hour: [YYYY-MM-DDThh] for usage beginning at this hour.</param>
+	/// <param name="endHour">Datetime in ISO-8601 format, UTC, precise to hour: [YYYY-MM-DDThh] for usage ending before this hour.</param>
+	/// <param name="usageType">Usage type to retrieve.</param>
+	/// <param name="nextRecordId">List following results with a next_record_id provided in the previous query.</param>
+	/// <param name="tagBreakdownKeys">Comma separated list of tags used to group usage. If no value is provided the usage will not be broken down by tags.</param>
+	/// <param name="includeDescendants">Include child org usage in the response. Defaults to true.</param>
+	/// <param name="cancellationToken"></param>
+	/// <seealso href="https://docs.datadoghq.com/api/latest/usage-metering/?code-lang=curl#get-hourly-usage-attribution"/>
+	[Get("/v1/usage/hourly-attribution")]
+	public Task<HourlyUsageAttributionResponse> GetHourlyUsageAttributionAsync(
+		[AliasAs("start_hr")] string startHour,
+		[AliasAs("end_hr")] string? endHour = null,
+		[AliasAs("usage_type")] UsageType usageType = UsageType.ApiUsage,
+		[AliasAs("next_record_id")] string? nextRecordId = null,
+		[AliasAs("tag_breakdown_keys")] string? tagBreakdownKeys = null,
+		[AliasAs("include_descendants")] bool includeDescendants = true,
 		CancellationToken cancellationToken = default);
 }

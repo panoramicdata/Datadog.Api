@@ -22,4 +22,3 @@ public class HourlyUsage : StringIdentifiedBaseEntity
 	[JsonPropertyName("measurements")]
 	public required IReadOnlyCollection<Measurement> Measurements { get; set; }
 }
-
