@@ -1,16 +1,14 @@
-﻿using FluentAssertions;
+﻿namespace Datadog.Api.Test;
 
-namespace Datadog.Api.Test;
-
-public class TeamsTests(DatadogClient client)
+public class TeamsTests(DatadogClientFixture fixture, ITestOutputHelper output) : BaseTest(fixture, output)
 {
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
 		// Arrange
-		var result = await client
+		var result = await Client
 			.Teams
-			.GetAsync(cancellationToken: default);
+			.GetAsync(cancellationToken: CancellationToken);
 
 		result.Should().NotBeNull();
 	}

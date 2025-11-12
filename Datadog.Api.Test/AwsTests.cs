@@ -1,16 +1,14 @@
-﻿using FluentAssertions;
+﻿namespace Datadog.Api.Test;
 
-namespace Datadog.Api.Test;
-
-public class AwsTests(DatadogClient client)
+public class AwsTests(DatadogClientFixture fixture, ITestOutputHelper output) : BaseTest(fixture, output)
 {
 	[Fact]
 	public async Task Get_AwsTagFilters_Succeeds()
 	{
 		// Arrange
-		var result = await client
+		var result = await Client
 			.Aws
-			.GetTagFiltersAsync(default);
+			.GetTagFiltersAsync(CancellationToken);
 
 		result.Should().NotBeNull();
 	}
@@ -19,9 +17,9 @@ public class AwsTests(DatadogClient client)
 	public async Task Get_NamespaceRules_Succeeds()
 	{
 		// Arrange
-		var result = await client
+		var result = await Client
 			.Aws
-			.GetNamespaceRulesAsync(default);
+			.GetNamespaceRulesAsync(CancellationToken);
 
 		result.Should().NotBeNull();
 	}
@@ -30,9 +28,9 @@ public class AwsTests(DatadogClient client)
 	public async Task Get_EventBridgeSources_Succeeds()
 	{
 		// Arrange
-		var result = await client
+		var result = await Client
 			.Aws
-			.GetEventBridgeSourcesAsync(default);
+			.GetEventBridgeSourcesAsync(CancellationToken);
 
 		result.Should().NotBeNull();
 	}

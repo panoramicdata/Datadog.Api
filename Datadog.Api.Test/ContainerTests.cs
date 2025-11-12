@@ -1,16 +1,14 @@
-﻿using FluentAssertions;
+﻿namespace Datadog.Api.Test;
 
-namespace Datadog.Api.Test;
-
-public class ContainerTests(DatadogClient client)
+public class ContainerTests(DatadogClientFixture fixture, ITestOutputHelper output) : BaseTest(fixture, output)
 {
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
 		// Arrange
-		var result = await client
+		var result = await Client
 			.Containers
-			.GetAsync(default);
+			.GetAsync(CancellationToken);
 
 		result.Should().NotBeNull();
 	}

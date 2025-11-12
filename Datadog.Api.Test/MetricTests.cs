@@ -1,8 +1,6 @@
-﻿using FluentAssertions;
+﻿namespace Datadog.Api.Test;
 
-namespace Datadog.Api.Test;
-
-public class MetricTests(DatadogClient client)
+public class MetricTests(DatadogClientFixture fixture, ITestOutputHelper output) : BaseTest(fixture, output)
 {
 	[Fact]
 	public async Task GetActiveMetrics_Succeeds()
@@ -11,9 +9,9 @@ public class MetricTests(DatadogClient client)
 		var oneHourAgoUnixTimestamp = DateTimeOffset.UtcNow.AddHours(-1).ToUnixTimeSeconds();
 
 		// Act
-		var result = await client
+		var result = await Client
 			.Metrics
-			.GetActiveAsync(oneHourAgoUnixTimestamp);
+			.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken);
 
 		result.Should().NotBeNull();
 	}
@@ -22,9 +20,9 @@ public class MetricTests(DatadogClient client)
 	public async Task GetMetrics_Succeeds()
 	{
 		// Act
-		var result = await client
+		var result = await Client
 			.Metrics
-			.GetMetricsAsync(cancellationToken: default);
+			.GetMetricsAsync(cancellationToken: CancellationToken);
 
 		// Assert
 		result.Should().NotBeNull();
@@ -35,16 +33,16 @@ public class MetricTests(DatadogClient client)
 	{
 		// Arrange
 		var oneHourAgoUnixTimestamp = DateTimeOffset.UtcNow.AddHours(-1).ToUnixTimeSeconds();
-		var metricsResponse = await client
+		var metricsResponse = await Client
 			.Metrics
-			.GetActiveAsync(oneHourAgoUnixTimestamp);
+			.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken);
 
 		// Act
 		foreach (var metricName in metricsResponse.MetricNames.Take(10))
 		{
-			var result = await client
+			var result = await Client
 				.Metrics
-				.GetMetadataAsync(metricName, default);
+				.GetMetadataAsync(metricName, CancellationToken);
 
 			// Assert
 			result.Should().NotBeNull();
@@ -57,16 +55,16 @@ public class MetricTests(DatadogClient client)
 	{
 		// Arrange
 		var oneHourAgoUnixTimestamp = DateTimeOffset.UtcNow.AddHours(-1).ToUnixTimeSeconds();
-		var metricsResponse = await client
+		var metricsResponse = await Client
 			.Metrics
-			.GetActiveAsync(oneHourAgoUnixTimestamp);
+			.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken);
 
 		// Act
 		foreach (var metricName in metricsResponse.MetricNames.Take(10))
 		{
-			var result = await client
+			var result = await Client
 				.Metrics
-				.GetRelatedAssetsAsync(metricName, default);
+				.GetRelatedAssetsAsync(metricName, CancellationToken);
 
 			// Assert
 			result.Should().NotBeNull();
@@ -81,22 +79,22 @@ public class MetricTests(DatadogClient client)
 		DateTimeOffset utcNow = DateTimeOffset.UtcNow;
 		var twentyFiveHoursAgoUnixTimestamp = utcNow.AddHours(-25).ToUnixTimeSeconds();
 		var oneHourAgoUnixTimestamp = utcNow.AddHours(-1).ToUnixTimeSeconds();
-		var metricsResponse = await client
+		var metricsResponse = await Client
 			.Metrics
-			.GetActiveAsync(oneHourAgoUnixTimestamp);
+			.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken);
 
 		// Act
 		foreach (var metricName in metricsResponse.MetricNames.Take(10))
 		{
 			var queryString = $"{metricName}{{*}}";
 
-			var result = await client
+			var result = await Client
 				.Metrics
 				.QueryTimeSeriesPointsAsync(
 					twentyFiveHoursAgoUnixTimestamp,
 					oneHourAgoUnixTimestamp,
 					queryString,
-					default);
+					CancellationToken);
 
 			// Assert
 			result.Should().NotBeNull();

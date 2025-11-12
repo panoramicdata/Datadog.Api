@@ -1,16 +1,16 @@
-﻿using FluentAssertions;
+﻿using AwesomeAssertions;
 
 namespace Datadog.Api.Test;
 
-public class DowntimeTests(DatadogClient client)
+public class DowntimeTests(DatadogClientFixture fixture, ITestOutputHelper output) : BaseTest(fixture, output)
 {
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
 		// Arrange
-		var result = await client
+		var result = await Client
 			.Downtimes
-			.GetAsync(default);
+			.GetAsync(CancellationToken);
 
 		result.Should().NotBeNull();
 	}

@@ -1,30 +1,28 @@
-﻿using FluentAssertions;
+﻿namespace Datadog.Api.Test;
 
-namespace Datadog.Api.Test;
-
-public class UserTests(DatadogClient client)
+public class UserTests(DatadogClientFixture fixture, ITestOutputHelper output) : BaseTest(fixture, output)
 {
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
 		// Arrange
-		var result = await client
+		var result = await Client
 			.Users
-			.GetAsync(default);
+			.GetAsync(CancellationToken);
 
 		result.Should().NotBeNull();
 	}
 }
 
-public class WebhooksIntegrationTests(DatadogClient client)
+public class WebhooksIntegrationTests(DatadogClientFixture fixture, ITestOutputHelper output) : BaseTest(fixture, output)
 {
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
 		// Arrange
-		var result = await client
+		var result = await Client
 			.WebhooksIntegrations
-			.GetAsync(default);
+			.GetAsync(CancellationToken);
 
 		result.Should().NotBeNull();
 	}
