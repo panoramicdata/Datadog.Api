@@ -4,10 +4,6 @@ namespace Datadog.Api.Models;
 
 public class StringIdentifiedEntity<TAttributes> : StringIdentifiedBaseEntity
 {
-	public StringIdentifiedEntity()
-	{
-	}
-
 	[JsonPropertyName("attributes")]
 	public required TAttributes Attributes { get; set; }
 

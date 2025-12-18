@@ -5,11 +5,12 @@ public class RolesTests(DatadogClientFixture fixture, ITestOutputHelper output) 
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
-		// Arrange
-		var result = await Client
-			.Roles
-			.GetAsync(CancellationToken);
+		// Act
+		var result = await ExecuteApiCallAsync(
+			() => Client.Roles.GetAsync(CancellationToken),
+			nameof(Get_Page_Succeeds));
 
+		// Assert
 		result.Should().NotBeNull();
 	}
 }

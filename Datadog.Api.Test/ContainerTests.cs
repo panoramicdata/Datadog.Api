@@ -5,11 +5,8 @@ public class ContainerTests(DatadogClientFixture fixture, ITestOutputHelper outp
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
-		// Arrange
-		var result = await Client
-			.Containers
-			.GetAsync(CancellationToken);
-
-		result.Should().NotBeNull();
+		await AssertApiCallSucceedsAsync(
+			() => Client.Containers.GetAsync(CancellationToken),
+			nameof(Get_Page_Succeeds));
 	}
 }

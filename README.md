@@ -2,11 +2,11 @@
 
 A .NET API for Datadog
 
-# Unit Tests
+## Unit Tests
 
-To run unit tests, set up you unit test User secrets to match the usersecrets.example.json file.
+To run unit tests, set up your unit test User secrets to match the usersecrets.example.json file.
 
-# Usage
+## Usage
 
 ```csharp
 using Datadog.Api;

@@ -103,15 +103,14 @@ public class AuthenticatedHttpClientHandler(DatadogClientOptions options) : Http
 		// Was the request successful?
 		if (!httpResponse.IsSuccessStatusCode)
 		{
-			// No.
-
-			// Is this a Datadog Response?
-			var body = httpResponse.Content is not null
-				? await httpResponse
+			// No - read the body but don't process it (response will be returned as-is)
+			if (httpResponse.Content is not null)
+			{
+				_ = await httpResponse
 					.Content
 					.ReadAsStringAsync(cancellationToken)
-					.ConfigureAwait(false)
-				: string.Empty;
+					.ConfigureAwait(false);
+			}
 		}
 
 		// Rewrite the content, replacing all instances of "type" with "$type"

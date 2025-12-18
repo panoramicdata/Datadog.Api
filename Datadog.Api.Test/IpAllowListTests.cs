@@ -5,11 +5,12 @@ public class IpAllowListTests(DatadogClientFixture fixture, ITestOutputHelper ou
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
-		// Arrange
-		var result = await Client
-			.IpAllowLists
-			.GetAsync(CancellationToken);
+		// Act
+		var result = await ExecuteApiCallAsync(
+			() => Client.IpAllowLists.GetAsync(CancellationToken),
+			nameof(Get_Page_Succeeds));
 
+		// Assert
 		result.Should().NotBeNull();
 	}
 }

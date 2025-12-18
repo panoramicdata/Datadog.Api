@@ -1,5 +1,4 @@
-﻿using AwesomeAssertions;
-using Datadog.Api.Models.Usage;
+﻿using Datadog.Api.Models.Usage;
 using System.Globalization;
 
 namespace Datadog.Api.Test;
@@ -17,15 +16,15 @@ public class UsageTests(DatadogClientFixture fixture, ITestOutputHelper output) 
 		var endDate = currentDate.ToString("yyyy-MM-ddT00", CultureInfo.InvariantCulture);
 
 		// Act
-		var result = await Client
-			.Usage
-			.GetHourlyUsageAsync(
+		var result = await ExecuteApiCallAsync(
+			() => Client.Usage.GetHourlyUsageAsync(
 				startDate,
 				endDate,
 				[ProductFamily.All],
-				cancellationToken: CancellationToken
-				);
+				cancellationToken: CancellationToken),
+			nameof(Get_HourlyUsage_Succeeds));
 
+		// Assert
 		result.Should().NotBeNull();
 	}
 
@@ -40,15 +39,15 @@ public class UsageTests(DatadogClientFixture fixture, ITestOutputHelper output) 
 		var endDate = currentDate.ToString("yyyy-MM-ddT00", CultureInfo.InvariantCulture);
 
 		// Act
-		var result = await Client
-			.Usage
-			.GetHourlyUsageAttributionAsync(
+		var result = await ExecuteApiCallAsync(
+			() => Client.Usage.GetHourlyUsageAttributionAsync(
 				startDate,
 				endDate,
 				UsageType.ApiUsage,
-				cancellationToken: CancellationToken
-				);
+				cancellationToken: CancellationToken),
+			nameof(Get_HourlyUsageAttribution_Succeeds));
 
+		// Assert
 		result.Should().NotBeNull();
 	}
 }

@@ -25,10 +25,6 @@ namespace Datadog.Api.Models;
 [JsonDerivedType(typeof(GuidIdentifiedEntity<WebhooksIntegration>), "webhook_integration")]
 public abstract class GuidIdentifiedBaseEntity : BaseEntity
 {
-	public GuidIdentifiedBaseEntity()
-	{
-	}
-
 	[JsonPropertyName("id")]
 	public required Guid Id { get; set; }
 }

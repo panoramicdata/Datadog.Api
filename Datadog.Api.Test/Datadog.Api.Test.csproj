@@ -17,15 +17,15 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.1" />
 
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.1" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-		<PackageReference Include="xunit.v3" Version="3.2.0" />
-		<PackageReference Include="xunit.v3.assert" Version="3.2.0" />
-		<PackageReference Include="xunit.v3.common" Version="3.2.0" />
+		<PackageReference Include="xunit.v3" Version="3.2.1" />
+		<PackageReference Include="xunit.v3.assert" Version="3.2.1" />
+		<PackageReference Include="xunit.v3.common" Version="3.2.1" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -5,11 +5,8 @@ public class DashboardListTests(DatadogClientFixture fixture, ITestOutputHelper 
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
-		// Arrange
-		var result = await Client
-			.DashboardLists
-			.GetAsync(CancellationToken);
-
-		result.Should().NotBeNull();
+		await AssertApiCallSucceedsAsync(
+			() => Client.DashboardLists.GetAsync(CancellationToken),
+			nameof(Get_Page_Succeeds));
 	}
 }

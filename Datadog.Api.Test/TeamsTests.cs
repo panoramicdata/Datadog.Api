@@ -5,11 +5,12 @@ public class TeamsTests(DatadogClientFixture fixture, ITestOutputHelper output) 
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
-		// Arrange
-		var result = await Client
-			.Teams
-			.GetAsync(cancellationToken: CancellationToken);
+		// Act
+		var result = await ExecuteApiCallAsync(
+			() => Client.Teams.GetAsync(cancellationToken: CancellationToken),
+			nameof(Get_Page_Succeeds));
 
+		// Assert
 		result.Should().NotBeNull();
 	}
 }

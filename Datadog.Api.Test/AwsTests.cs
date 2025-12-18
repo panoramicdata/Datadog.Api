@@ -5,33 +5,24 @@ public class AwsTests(DatadogClientFixture fixture, ITestOutputHelper output) : 
 	[Fact]
 	public async Task Get_AwsTagFilters_Succeeds()
 	{
-		// Arrange
-		var result = await Client
-			.Aws
-			.GetTagFiltersAsync(CancellationToken);
-
-		result.Should().NotBeNull();
+		await AssertApiCallSucceedsAsync(
+			() => Client.Aws.GetTagFiltersAsync(CancellationToken),
+			nameof(Get_AwsTagFilters_Succeeds));
 	}
 
 	[Fact]
 	public async Task Get_NamespaceRules_Succeeds()
 	{
-		// Arrange
-		var result = await Client
-			.Aws
-			.GetNamespaceRulesAsync(CancellationToken);
-
-		result.Should().NotBeNull();
+		await AssertApiCallSucceedsAsync(
+			() => Client.Aws.GetNamespaceRulesAsync(CancellationToken),
+			nameof(Get_NamespaceRules_Succeeds));
 	}
 
 	[Fact]
 	public async Task Get_EventBridgeSources_Succeeds()
 	{
-		// Arrange
-		var result = await Client
-			.Aws
-			.GetEventBridgeSourcesAsync(CancellationToken);
-
-		result.Should().NotBeNull();
+		await AssertApiCallSucceedsAsync(
+			() => Client.Aws.GetEventBridgeSourcesAsync(CancellationToken),
+			nameof(Get_EventBridgeSources_Succeeds));
 	}
 }

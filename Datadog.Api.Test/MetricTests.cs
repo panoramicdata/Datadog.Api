@@ -9,10 +9,11 @@ public class MetricTests(DatadogClientFixture fixture, ITestOutputHelper output)
 		var oneHourAgoUnixTimestamp = DateTimeOffset.UtcNow.AddHours(-1).ToUnixTimeSeconds();
 
 		// Act
-		var result = await Client
-			.Metrics
-			.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken);
+		var result = await ExecuteApiCallAsync(
+			() => Client.Metrics.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken),
+			nameof(GetActiveMetrics_Succeeds));
 
+		// Assert
 		result.Should().NotBeNull();
 	}
 
@@ -20,9 +21,9 @@ public class MetricTests(DatadogClientFixture fixture, ITestOutputHelper output)
 	public async Task GetMetrics_Succeeds()
 	{
 		// Act
-		var result = await Client
-			.Metrics
-			.GetMetricsAsync(cancellationToken: CancellationToken);
+		var result = await ExecuteApiCallAsync(
+			() => Client.Metrics.GetMetricsAsync(cancellationToken: CancellationToken),
+			nameof(GetMetrics_Succeeds));
 
 		// Assert
 		result.Should().NotBeNull();
@@ -33,16 +34,16 @@ public class MetricTests(DatadogClientFixture fixture, ITestOutputHelper output)
 	{
 		// Arrange
 		var oneHourAgoUnixTimestamp = DateTimeOffset.UtcNow.AddHours(-1).ToUnixTimeSeconds();
-		var metricsResponse = await Client
-			.Metrics
-			.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken);
+		var metricsResponse = await ExecuteApiCallAsync(
+			() => Client.Metrics.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken),
+			nameof(GetMetadata_Succeeds));
 
 		// Act
 		foreach (var metricName in metricsResponse.MetricNames.Take(10))
 		{
-			var result = await Client
-				.Metrics
-				.GetMetadataAsync(metricName, CancellationToken);
+			var result = await ExecuteApiCallAsync(
+				() => Client.Metrics.GetMetadataAsync(metricName, CancellationToken),
+				$"{nameof(GetMetadata_Succeeds)}/{metricName}");
 
 			// Assert
 			result.Should().NotBeNull();
@@ -55,16 +56,16 @@ public class MetricTests(DatadogClientFixture fixture, ITestOutputHelper output)
 	{
 		// Arrange
 		var oneHourAgoUnixTimestamp = DateTimeOffset.UtcNow.AddHours(-1).ToUnixTimeSeconds();
-		var metricsResponse = await Client
-			.Metrics
-			.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken);
+		var metricsResponse = await ExecuteApiCallAsync(
+			() => Client.Metrics.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken),
+			nameof(GetRelatedAssets_Succeeds));
 
 		// Act
 		foreach (var metricName in metricsResponse.MetricNames.Take(10))
 		{
-			var result = await Client
-				.Metrics
-				.GetRelatedAssetsAsync(metricName, CancellationToken);
+			var result = await ExecuteApiCallAsync(
+				() => Client.Metrics.GetRelatedAssetsAsync(metricName, CancellationToken),
+				$"{nameof(GetRelatedAssets_Succeeds)}/{metricName}");
 
 			// Assert
 			result.Should().NotBeNull();
@@ -79,22 +80,22 @@ public class MetricTests(DatadogClientFixture fixture, ITestOutputHelper output)
 		DateTimeOffset utcNow = DateTimeOffset.UtcNow;
 		var twentyFiveHoursAgoUnixTimestamp = utcNow.AddHours(-25).ToUnixTimeSeconds();
 		var oneHourAgoUnixTimestamp = utcNow.AddHours(-1).ToUnixTimeSeconds();
-		var metricsResponse = await Client
-			.Metrics
-			.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken);
+		var metricsResponse = await ExecuteApiCallAsync(
+			() => Client.Metrics.GetActiveAsync(oneHourAgoUnixTimestamp, cancellationToken: CancellationToken),
+			nameof(QueryTimeSeriesPoints_Succeeds));
 
 		// Act
 		foreach (var metricName in metricsResponse.MetricNames.Take(10))
 		{
 			var queryString = $"{metricName}{{*}}";
 
-			var result = await Client
-				.Metrics
-				.QueryTimeSeriesPointsAsync(
+			var result = await ExecuteApiCallAsync(
+				() => Client.Metrics.QueryTimeSeriesPointsAsync(
 					twentyFiveHoursAgoUnixTimestamp,
 					oneHourAgoUnixTimestamp,
 					queryString,
-					CancellationToken);
+					CancellationToken),
+				$"{nameof(QueryTimeSeriesPoints_Succeeds)}/{metricName}");
 
 			// Assert
 			result.Should().NotBeNull();

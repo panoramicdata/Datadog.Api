@@ -5,11 +5,8 @@ public class HostTests(DatadogClientFixture fixture, ITestOutputHelper output) :
 	[Fact]
 	public async Task Get_Page_Succeeds()
 	{
-		// Arrange
-		var result = await Client
-			.Hosts
-			.GetAsync(CancellationToken);
-
-		result.Should().NotBeNull();
+		await AssertApiCallSucceedsAsync(
+			() => Client.Hosts.GetAsync(CancellationToken),
+			nameof(Get_Page_Succeeds));
 	}
 }
