@@ -39,7 +39,7 @@ public class MetricTests(DatadogClientFixture fixture, ITestOutputHelper output)
 			nameof(GetMetadata_Succeeds));
 
 		// Act
-		foreach (var metricName in metricsResponse.MetricNames.Take(10))
+		foreach (var metricName in metricsResponse!.MetricNames.Take(10))
 		{
 			var result = await ExecuteApiCallAsync(
 				() => Client.Metrics.GetMetadataAsync(metricName, CancellationToken),
@@ -61,7 +61,7 @@ public class MetricTests(DatadogClientFixture fixture, ITestOutputHelper output)
 			nameof(GetRelatedAssets_Succeeds));
 
 		// Act
-		foreach (var metricName in metricsResponse.MetricNames.Take(10))
+		foreach (var metricName in metricsResponse!.MetricNames.Take(10))
 		{
 			var result = await ExecuteApiCallAsync(
 				() => Client.Metrics.GetRelatedAssetsAsync(metricName, CancellationToken),
@@ -85,7 +85,7 @@ public class MetricTests(DatadogClientFixture fixture, ITestOutputHelper output)
 			nameof(QueryTimeSeriesPoints_Succeeds));
 
 		// Act
-		foreach (var metricName in metricsResponse.MetricNames.Take(10))
+		foreach (var metricName in metricsResponse!.MetricNames.Take(10))
 		{
 			var queryString = $"{metricName}{{*}}";
 

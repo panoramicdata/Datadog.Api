@@ -1,39 +1,36 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<OutputType>Library</OutputType>
-		<TargetFramework>net10.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<LangVersion>latest</LangVersion>
-		<Nullable>enable</Nullable>
-		<AnalysisMode>Recommended</AnalysisMode>
-		<AnalysisLevel>latest-recommended</AnalysisLevel>
-		<UserSecretsId>ca8c3660-7b85-423e-aa10-4a31f127014c</UserSecretsId>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="AwesomeAssertions" Version="9.3.0" />
-		<PackageReference Include="AwesomeAssertions.Analyzers" Version="9.0.8">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.1" />
-
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.1" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-		<PackageReference Include="xunit.v3" Version="3.2.1" />
-		<PackageReference Include="xunit.v3.assert" Version="3.2.1" />
-		<PackageReference Include="xunit.v3.common" Version="3.2.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Datadog.Api\Datadog.Api.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Using Include="Xunit" />
-	</ItemGroup>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AnalysisMode>Recommended</AnalysisMode>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <UserSecretsId>ca8c3660-7b85-423e-aa10-4a31f127014c</UserSecretsId>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AwesomeAssertions" />
+    <PackageReference Include="AwesomeAssertions.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.v3.assert" />
+    <PackageReference Include="xunit.v3.common" />
+    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Datadog.Api\Datadog.Api.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
 </Project>

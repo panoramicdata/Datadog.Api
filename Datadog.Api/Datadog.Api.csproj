@@ -1,55 +1,54 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
-		<Authors>Panoramic Data Limited</Authors>
-		<PackageProjectUrl>https://github.com/panoramicdata/Datadog.Api/</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/panoramicdata/Datadog.Api/</RepositoryUrl>
-		<Copyright>Copyright © Panoramic Data Limited 2025</Copyright>
-		<PackageLicenseUrl></PackageLicenseUrl>
-		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-		<PackageIcon>Icon.png</PackageIcon>
-		<PackageTags>Datadog API REST</PackageTags>
-		<PackageId>PanoramicData.Datadog.Api</PackageId>
-		<Title>Datadog.Api</Title>
-		<Description>A .NET API for Datadog</Description>
-		<Summary>A .NET API for Datadog</Summary>
-		<Company>Panoramic Data Limited</Company>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<LangVersion>latest</LangVersion>
-		<AnalysisMode>All</AnalysisMode>
-		<Nullable>enable</Nullable>
-		<RepositoryType>git</RepositoryType>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<ApplicationIcon>Icon.ico</ApplicationIcon>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<AnalysisLevel>latest-recommended</AnalysisLevel>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
-		<!-- Update the following before releasing to nuget -->
-		<PackageReleaseNotes>Updated various nuget packages</PackageReleaseNotes>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
-		<PackageReference Include="Nerdbank.GitVersioning" Version="3.9.50">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Refit" Version="9.0.2" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="C:\Users\DavidBond\Source\Repos\panoramicdata\Datadog.Api\Datadog.Api\.editorconfig" />
-		<None Include="Icon.png" Pack="true" PackagePath="" />
-	</ItemGroup>
-	<ItemGroup>
-		<EditorConfigFiles Remove="C:\Users\DavidBond\Source\Repos\panoramicdata\Datadog.Api\Datadog.Api\.editorconfig" />
-	</ItemGroup>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Authors>Panoramic Data Limited</Authors>
+    <PackageProjectUrl>https://github.com/panoramicdata/Datadog.Api/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/panoramicdata/Datadog.Api/</RepositoryUrl>
+    <Copyright>Copyright © Panoramic Data Limited 2025</Copyright>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageTags>Datadog API REST</PackageTags>
+    <PackageId>PanoramicData.Datadog.Api</PackageId>
+    <Title>Datadog.Api</Title>
+    <Description>A .NET API for Datadog</Description>
+    <Summary>A .NET API for Datadog</Summary>
+    <Company>Panoramic Data Limited</Company>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
+    <AnalysisMode>All</AnalysisMode>
+    <Nullable>enable</Nullable>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!-- Update the following before releasing to nuget -->
+    <PackageReleaseNotes>Updated various nuget packages</PackageReleaseNotes>
+    <NeutralResourcesLanguage>en</NeutralResourcesLanguage>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Nerdbank.GitVersioning">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Refit" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="C:\Users\DavidBond\Source\Repos\panoramicdata\Datadog.Api\Datadog.Api\.editorconfig" />
+    <None Include="Icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\DavidBond\Source\Repos\panoramicdata\Datadog.Api\Datadog.Api\.editorconfig" />
+  </ItemGroup>
 </Project>
