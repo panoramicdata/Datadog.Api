@@ -25,8 +25,7 @@
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="xunit.v3.assert" />
     <PackageReference Include="xunit.v3.common" />
-    <PackageReference Include="coverlet.collector" PrivateAssets="all" />
-  </ItemGroup>
+  <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" PrivateAssets="all" /></ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Datadog.Api\Datadog.Api.csproj" />
   </ItemGroup>
