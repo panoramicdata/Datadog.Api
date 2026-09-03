@@ -93,7 +93,7 @@ public class AuthenticatedHttpClientHandler(DatadogClientOptions options) : Http
 		}
 
 		var url = request.RequestUri!.ToString();
-		var headers = FormatHeaders(request.Headers);
+		var headers = request.Headers.ToDebugString();
 		var body = request.Content is not null
 			? await request
 				.Content
@@ -121,7 +121,7 @@ public class AuthenticatedHttpClientHandler(DatadogClientOptions options) : Http
 			return;
 		}
 
-		var headers = FormatHeaders(httpResponse.Headers);
+		var headers = httpResponse.Headers.ToDebugString();
 		var body = httpResponse.Content is not null
 			? await httpResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)
 			: string.Empty;
@@ -133,9 +133,6 @@ public class AuthenticatedHttpClientHandler(DatadogClientOptions options) : Http
 			headers,
 			TryPrettyPrintJson(body));
 	}
-
-	private static string FormatHeaders(HttpHeaders headers)
-		=> string.Join("\n", headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value.Select(v => v))}"));
 
 	private static string TryPrettyPrintJson(string body)
 	{

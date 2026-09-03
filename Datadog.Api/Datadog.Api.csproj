@@ -28,10 +28,28 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <!-- Update the following before releasing to nuget -->
-    <PackageReleaseNotes>Updated various nuget packages</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Security fix: sensitive HTTP headers are now redacted in diagnostic output.
+
+      Previously AuthenticatedHttpClientHandler joined every request and response header, key and
+      value, into its Debug level log message. The handler adds DD-API-KEY and DD-APPLICATION-KEY to
+      each request, so both keys were written verbatim. Any consumer running at Debug retained usable
+      credentials for the life of its log store, and neither key expires.
+
+      DD-API-KEY and DD-APPLICATION-KEY are now redacted, along with Authorization,
+      Proxy-Authorization, Cookie, Set-Cookie and common API key header names, case-insensitively, on
+      request and response. The credential length is retained, so requests remain diagnosable without
+      exposing the value. The log line format is otherwise unchanged.
+
+      Consumers should upgrade, review existing Debug logs for previously captured keys, and rotate
+      any key that appears in them.
+    </PackageReleaseNotes>
     <NeutralResourcesLanguage>en</NeutralResourcesLanguage>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Datadog.Api.Test" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     <PackageReference Include="Nerdbank.GitVersioning">
