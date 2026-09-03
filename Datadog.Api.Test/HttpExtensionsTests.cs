@@ -28,8 +28,10 @@ namespace Datadog.Api.Test;
 /// </summary>
 public class HttpExtensionsTests
 {
-	private const string FakeApiKey = "0123456789abcdef0123456789abcdef";
-	private const string FakeApplicationKey = "fedcba9876543210fedcba9876543210fedcba98";
+	// Deliberately low-entropy, self-describing placeholders: the assertions below depend only
+	// on the length of these values, and realistic-looking keys trip secret scanners.
+	private const string FakeApiKey = "not-a-real-api-key-used-only-in-tests";
+	private const string FakeApplicationKey = "not-a-real-application-key-used-only-in-tests";
 
 	/// <summary>
 	/// The headline case: both Datadog keys must go, set exactly as the handler sets them.
