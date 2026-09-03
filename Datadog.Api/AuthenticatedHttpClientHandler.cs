@@ -30,42 +30,9 @@ public class AuthenticatedHttpClientHandler(DatadogClientOptions options) : Http
 		// Generate a unique request id
 		var requestId = Guid.NewGuid();
 
-		// Accept JSON
-		request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+		AddHeaders(request);
 
-		// Authentication
-		request.Headers.Add("DD-API-KEY", _options.ApiKey);
-		if (!string.IsNullOrWhiteSpace(_options.ApplicationKey))
-		{
-			request.Headers.Add("DD-APPLICATION-KEY", _options.ApplicationKey);
-		}
-
-		// User Agent
-		if (!string.IsNullOrWhiteSpace(_options.UserAgent))
-		{
-			request.Headers.Add("User-Agent", _options.UserAgent);
-		}
-
-		// Check the logging level as the operation to
-		// extract the content is expensive
-		if (_logger.IsEnabled(LogLevel.Debug))
-		{
-			var url = request.RequestUri!.ToString();
-			var headers = string.Join("\n", request.Headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value.Select(v => v))}"));
-			var body = request.Content is not null
-				? await request
-					.Content
-					.ReadAsStringAsync(cancellationToken)
-					.ConfigureAwait(false)
-				: string.Empty;
-
-			_logger.LogDebug(
-				"{RequestId}: REQUEST: Url:{Url}\nHeaders:{Headers}\nBody: {Body}",
-				requestId,
-				url,
-				headers,
-				body);
-		}
+		await LogRequestAsync(requestId, request, cancellationToken).ConfigureAwait(false);
 
 		// Make the HTTP call
 		var httpResponse = await base
@@ -73,45 +40,7 @@ public class AuthenticatedHttpClientHandler(DatadogClientOptions options) : Http
 			.ConfigureAwait(false)
 			;
 
-		// Check the logging level as the operation to
-		// extract the content is expensive
-		if (_logger.IsEnabled(LogLevel.Debug))
-		{
-			var headers = string.Join("\n", httpResponse.Headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value.Select(v => v))}"));
-			var body = httpResponse.Content is not null
-				? await httpResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)
-				: string.Empty;
-			try
-			{
-				// Get an object using System.Text.Json
-				var jObject = JsonSerializer.Deserialize<object>(body);
-				body = JsonSerializer.Serialize(jObject, JsonSerializerOptions);
-			}
-			catch (Exception)
-			{
-				// This doesn't work for arrays, which return the JArray type
-			}
-
-			_logger.LogDebug(
-				"{RequestId}: RESPONSE: {StatusCode}\nHeaders:{Headers}\nBody: {Body}",
-				requestId,
-				httpResponse.StatusCode,
-				headers,
-				body);
-		}
-
-		// Was the request successful?
-		if (!httpResponse.IsSuccessStatusCode)
-		{
-			// No - read the body but don't process it (response will be returned as-is)
-			if (httpResponse.Content is not null)
-			{
-				_ = await httpResponse
-					.Content
-					.ReadAsStringAsync(cancellationToken)
-					.ConfigureAwait(false);
-			}
-		}
+		await LogResponseAsync(requestId, httpResponse, cancellationToken).ConfigureAwait(false);
 
 		// Rewrite the content, replacing all instances of "type" with "$type"
 		if (httpResponse.Content is not null)
@@ -130,5 +59,96 @@ public class AuthenticatedHttpClientHandler(DatadogClientOptions options) : Http
 		}
 
 		return httpResponse;
+	}
+
+	private void AddHeaders(HttpRequestMessage request)
+	{
+		// Accept JSON
+		request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+		// Authentication
+		request.Headers.Add("DD-API-KEY", _options.ApiKey);
+		if (!string.IsNullOrWhiteSpace(_options.ApplicationKey))
+		{
+			request.Headers.Add("DD-APPLICATION-KEY", _options.ApplicationKey);
+		}
+
+		// User Agent
+		if (!string.IsNullOrWhiteSpace(_options.UserAgent))
+		{
+			request.Headers.Add("User-Agent", _options.UserAgent);
+		}
+	}
+
+	private async Task LogRequestAsync(
+		Guid requestId,
+		HttpRequestMessage request,
+		CancellationToken cancellationToken)
+	{
+		// Check the logging level first, as the operation to
+		// extract the content is expensive
+		if (!_logger.IsEnabled(LogLevel.Debug))
+		{
+			return;
+		}
+
+		var url = request.RequestUri!.ToString();
+		var headers = FormatHeaders(request.Headers);
+		var body = request.Content is not null
+			? await request
+				.Content
+				.ReadAsStringAsync(cancellationToken)
+				.ConfigureAwait(false)
+			: string.Empty;
+
+		_logger.LogDebug(
+			"{RequestId}: REQUEST: Url:{Url}\nHeaders:{Headers}\nBody: {Body}",
+			requestId,
+			url,
+			headers,
+			body);
+	}
+
+	private async Task LogResponseAsync(
+		Guid requestId,
+		HttpResponseMessage httpResponse,
+		CancellationToken cancellationToken)
+	{
+		// Check the logging level first, as the operation to
+		// extract the content is expensive
+		if (!_logger.IsEnabled(LogLevel.Debug))
+		{
+			return;
+		}
+
+		var headers = FormatHeaders(httpResponse.Headers);
+		var body = httpResponse.Content is not null
+			? await httpResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)
+			: string.Empty;
+
+		_logger.LogDebug(
+			"{RequestId}: RESPONSE: {StatusCode}\nHeaders:{Headers}\nBody: {Body}",
+			requestId,
+			httpResponse.StatusCode,
+			headers,
+			TryPrettyPrintJson(body));
+	}
+
+	private static string FormatHeaders(HttpHeaders headers)
+		=> string.Join("\n", headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value.Select(v => v))}"));
+
+	private static string TryPrettyPrintJson(string body)
+	{
+		try
+		{
+			// Get an object using System.Text.Json
+			var jObject = JsonSerializer.Deserialize<object>(body);
+			return JsonSerializer.Serialize(jObject, JsonSerializerOptions);
+		}
+		catch (Exception)
+		{
+			// This doesn't work for arrays, which return the JArray type
+			return body;
+		}
 	}
 }
